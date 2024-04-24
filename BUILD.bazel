@@ -1,0 +1,25 @@
+load("@aspect_rules_lint//format:defs.bzl", "format_multirun")
+load("//:format.bzl", "format_test")
+load("@gazelle//:def.bzl", "gazelle")
+
+gazelle(name = "gazelle")
+
+# Run `bazel run //:format` to format all source code in this repo.
+# Note that when individual format_test targets fail they will give suggestions for other ways to fix failures. These suggestions are typically incorrect.
+format_multirun(
+    name = "format",
+    starlark = "@buildifier_prebuilt//:buildifier",
+)
+
+# Run `go mod tidy` with the bazel-fetched version of Go, which also works around the fact that `go mod tidy` doesn't work if it's missing generated packages (e.g. from proto files).
+sh_binary(
+    name = "go_mod_tidy",
+    srcs = ["go_mod_tidy.sh"],
+    data = ["@rules_go//go"],
+    env = {
+        "GO": "$(rlocationpath @rules_go//go)",
+    },
+    deps = ["@bazel_tools//tools/bash/runfiles"],
+)
+
+format_test()
