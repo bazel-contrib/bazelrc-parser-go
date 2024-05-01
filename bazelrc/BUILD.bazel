@@ -1,0 +1,36 @@
+load("//:format.bzl", "format_test")
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "go_default_library",
+    srcs = [
+        "command_line.go",
+        "contents.go",
+        "datatables.go",
+        "parser.go",
+    ],
+    importpath = "github.com/bazel-contrib/bazelrc-parser-go/bazelrc",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//bazel_protos/bazel_flags:bazel_flags_go_proto",
+        "@com_github_google_shlex//:go_default_library",
+        "@org_golang_google_protobuf//proto:go_default_library",
+        "@org_golang_x_exp//slices:go_default_library",
+    ],
+)
+
+go_test(
+    name = "go_default_test",
+    srcs = [
+        "command_line_test.go",
+        "parser_test.go",
+    ],
+    data = glob(["testdata/**"]),
+    embed = [":go_default_library"],
+    deps = [
+        "@com_github_stretchr_testify//require:go_default_library",
+        "@rules_go//go/runfiles:go_default_library",
+    ],
+)
+
+format_test()
