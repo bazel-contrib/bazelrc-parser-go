@@ -1,4 +1,4 @@
-package parser
+package bazelrc
 
 // BazelrcContents holds the output of parsing a Bazelrc file.
 type BazelrcContents struct {
