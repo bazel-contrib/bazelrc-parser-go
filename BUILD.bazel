@@ -1,7 +1,8 @@
 load("@aspect_rules_lint//format:defs.bzl", "format_multirun")
-load("//:format.bzl", "format_test")
 load("@gazelle//:def.bzl", "gazelle")
+load("//:format.bzl", "format_test")
 
+# gazelle:go_naming_convention import_alias
 gazelle(name = "gazelle")
 
 # Run `bazel run //:format` to format all source code in this repo.
