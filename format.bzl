@@ -5,7 +5,7 @@ def glob(patterns):
     kwargs = {}
     if native.package_name() == "":
         kwargs["exclude"] = ["bazel-*/**"]
-    return native.glob(patterns, **kwargs)
+    return native.glob(patterns, allow_empty=True, **kwargs)
 
 def format_test():
     # rules_lint by default creates targets for each of these languages (except starlark, which we need to add because it doesn't have a default tool label), which then no-op (but require fetching toolchains and building potentially large runfiles trees).
