@@ -1,5 +1,6 @@
 load("@aspect_rules_lint//format:defs.bzl", "format_multirun")
 load("@gazelle//:def.bzl", "gazelle")
+load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
 load("//:format.bzl", "format_test")
 
 # gazelle:go_naming_convention import_alias
