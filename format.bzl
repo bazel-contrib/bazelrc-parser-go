@@ -24,7 +24,7 @@ def format_test():
     srcs = []
     for lang, lang_srcs in src_map.items():
         if not lang_srcs:
-            kwargs[lang] = False
+            kwargs[lang] = None
         else:
             srcs += lang_srcs
             if lang == "starlark":
